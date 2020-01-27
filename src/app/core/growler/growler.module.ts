@@ -13,6 +13,7 @@ import { EnsureModuleLoadedOnceGuard } from '../ensure-module-loaded-once.guard'
 })
 export class GrowlerModule extends EnsureModuleLoadedOnceGuard {    // Ensure that GrowlerModule is only loaded into AppModule
 
+  // TODO: what is the @SkipSelf() directive about?
   // Looks for the module in the parent injector to see if it's already been loaded (only want it loaded once)
   constructor(@Optional() @SkipSelf() parentModule: GrowlerModule) {
     super(parentModule);

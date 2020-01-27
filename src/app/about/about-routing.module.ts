@@ -8,9 +8,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forChild(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class AboutRoutingModule {
-  static components = [ AboutComponent ];
+  // TODO: this is the first time I see any code inside the module class which is usually {}
+  // what is this pattern for ?
+  static components = [AboutComponent];
 }

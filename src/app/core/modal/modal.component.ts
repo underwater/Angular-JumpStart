@@ -5,7 +5,7 @@ import { ModalService, IModalContent } from './modal.service';
 @Component({
   selector: 'cm-modal',
   templateUrl: './modal.component.html',
-  styleUrls: [ './modal.component.css' ]
+  styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
 
@@ -31,6 +31,7 @@ export class ModalComponent implements OnInit {
 
   }
 
+  // TODO: Is this some sort of custom dialog service, like the one we were building?
   show(modalContent: IModalContent) {
     this.modalContent = Object.assign(this.defaultModalContent, modalContent);
     this.modalVisible = true;

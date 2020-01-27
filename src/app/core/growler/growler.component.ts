@@ -37,14 +37,16 @@ export class GrowlerComponent implements OnInit {
   * @param {GrowlMessageType} growlType - The type of message to display (a GrowlMessageType enumeration)
   * @return {number} id - Returns the ID for the generated growl
   */
-  growl(message: string, growlType: GrowlerMessageType): number {
-     this.growlCount++;
-     const bootstrapAlertType = GrowlerMessageType[growlType].toLowerCase();
-     const messageType = `alert-${ bootstrapAlertType }`;
 
-     const growl = new Growl(this.growlCount, message, messageType, this.timeout, this);
-     this.growls.push(growl);
-     return growl.id;
+  // TODO Is this some sort of custom toast service
+  growl(message: string, growlType: GrowlerMessageType): number {
+    this.growlCount++;
+    const bootstrapAlertType = GrowlerMessageType[growlType].toLowerCase();
+    const messageType = `alert-${bootstrapAlertType}`;
+
+    const growl = new Growl(this.growlCount, message, messageType, this.timeout, this);
+    this.growls.push(growl);
+    return growl.id;
   }
 
   removeGrowl(id: number) {
@@ -64,10 +66,10 @@ class Growl {
   timeoutId: number;
 
   constructor(public id: number,
-              public message: string,
-              public messageType: string,
-              private timeout: number,
-              private growlerContainer: GrowlerComponent) {
+    public message: string,
+    public messageType: string,
+    private timeout: number,
+    private growlerContainer: GrowlerComponent) {
     this.show();
   }
 

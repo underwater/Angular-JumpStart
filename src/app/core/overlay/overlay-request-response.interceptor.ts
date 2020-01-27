@@ -6,6 +6,8 @@ import { tap, delay, catchError } from 'rxjs/operators';
 
 import { EventBusService, EmitEvent, Events } from '../services/event-bus.service';
 
+
+// TODO: to fake the delay of an http call
 @Injectable()
 export class OverlayRequestResponseInterceptor implements HttpInterceptor {
 
@@ -16,26 +18,26 @@ export class OverlayRequestResponseInterceptor implements HttpInterceptor {
     const started = Date.now();
     this.eventBus.emit(new EmitEvent(Events.httpRequest));
     return next
-          .handle(req)
-          .pipe(
-            delay(randomTime),  // Simulate random Http call delays
-            tap(event => {
-              if (event instanceof HttpResponse) {
-                const elapsed = Date.now() - started;
-                this.eventBus.emit(new EmitEvent(Events.httpResponse));
-              }
-            }),
-            catchError(err => {
-              this.eventBus.emit(new EmitEvent(Events.httpResponse));
-              return of(null);
-            })
-          );
+      .handle(req)
+      .pipe(
+        delay(randomTime),  // Simulate random Http call delays
+        tap(event => {
+          if (event instanceof HttpResponse) {
+            const elapsed = Date.now() - started;
+            this.eventBus.emit(new EmitEvent(Events.httpResponse));
+          }
+        }),
+        catchError(err => {
+          this.eventBus.emit(new EmitEvent(Events.httpResponse));
+          return of(null);
+        })
+      );
   }
 
   getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; // The maximum is inclusive and the minimum is inclusive
-}
+  }
 
 }
